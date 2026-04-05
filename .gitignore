@@ -1,0 +1,14 @@
+# Node modules
+/node_modules
+
+# Compilation output
+/dist
+
+# Environment variables
+.env
+
+# Documentation
+AGENTS.md
+
+# Documentation references
+/docs
