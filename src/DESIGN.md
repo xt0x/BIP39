@@ -6,7 +6,9 @@
 - `src/bip39/` contains core BIP39 conversion functions.
 - `src/errors/` defines standard error codes and priority ordering.
 - `src/crypto/` wraps SHA-256 and PBKDF2-HMAC-SHA512 using standard libraries.
+- `src/normalize/` provides a compatibility input adapter (trim, NFKD, lowercase).
 - `src/parser/` implements strict mnemonic parsing contracts.
+- `src/entropy/` generates entropy via secure randomness with injectable providers for tests.
 - `src/types/` defines shared DTOs such as `ValidationResult`.
 - `src/wordlist/` loads and validates the English wordlist with index mappings.
 - `src/index.ts` re-exports the public surface for these foundational modules.
