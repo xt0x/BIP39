@@ -9,5 +9,6 @@
 - `src/normalize/` provides a compatibility input adapter (trim, NFKD, lowercase).
 - `src/parser/` implements strict mnemonic parsing contracts.
 - `src/entropy/` generates entropy via secure randomness with injectable providers for tests.
+- `src/integration/` wires core APIs to external systems (UI/BIP32) and error messaging.
 - `src/types/` defines shared DTOs such as `ValidationResult`.
 - `src/index.ts` re-exports the public surface for these foundational modules.
