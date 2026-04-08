@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "node --test --import tsx",
+		"test": "node --test --import tsx \"test/**/*.test.ts\" \"test/**/*.spec.ts\" \"test/**/*.test.js\" \"test/**/*.spec.js\"",
 		"lint": "biome check .",
 		"typecheck": "tsc --noEmit",
 		"build": "tsc -p tsconfig.json",
