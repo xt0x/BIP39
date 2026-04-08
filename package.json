@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"bin": {
+		"bip39": "dist/cli/index.js"
+	},
 	"scripts": {
 		"test": "node --test --import tsx \"test/**/*.test.ts\" \"test/**/*.spec.ts\" \"test/**/*.test.js\" \"test/**/*.spec.js\"",
 		"lint": "biome check .",
