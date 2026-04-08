@@ -65,7 +65,7 @@ test("roundtrip covers all allowed entropy lengths", () => {
 test("failure cases from appendix C are enforced", () => {
 	assert.throws(
 		() => entropyToMnemonic(new Uint8Array(15)),
-		(error) =>
+		(error: unknown) =>
 			error instanceof EntropyLengthError &&
 			error.code === ErrorCode.ERR_ENTROPY_LENGTH,
 	);
@@ -75,7 +75,7 @@ test("failure cases from appendix C are enforced", () => {
 			mnemonicToEntropy(
 				"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon",
 			),
-		(error) =>
+		(error: unknown) =>
 			error instanceof InvalidWordCountError &&
 			error.code === ErrorCode.ERR_INVALID_WORD_COUNT,
 	);
@@ -85,7 +85,7 @@ test("failure cases from appendix C are enforced", () => {
 			mnemonicToEntropy(
 				"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon",
 			),
-		(error) =>
+		(error: unknown) =>
 			error instanceof ChecksumMismatchError &&
 			error.code === ErrorCode.ERR_CHECKSUM_MISMATCH,
 	);
@@ -95,7 +95,7 @@ test("failure cases from appendix C are enforced", () => {
 			mnemonicToEntropy(
 				"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon typo",
 			),
-		(error) =>
+		(error: unknown) =>
 			error instanceof WordNotInListError &&
 			error.code === ErrorCode.ERR_WORD_NOT_IN_LIST,
 	);
@@ -105,14 +105,14 @@ test("failure cases from appendix C are enforced", () => {
 			mnemonicToEntropy(
 				"abandon\tabandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about",
 			),
-		(error) =>
+		(error: unknown) =>
 			error instanceof InvalidMnemonicFormatError &&
 			error.code === ErrorCode.ERR_INVALID_MNEMONIC_FORMAT,
 	);
 
 	assert.throws(
 		() => mnemonicToSeed(["abandon", "", "abandon"]),
-		(error) =>
+		(error: unknown) =>
 			error instanceof InvalidMnemonicSeedFormatError &&
 			error.code === ErrorCode.ERR_INVALID_MNEMONIC_FORMAT,
 	);
