@@ -2,6 +2,7 @@
 
 - Purpose: TypeScript source for the BIP39 implementation.
 - `src/constants/` defines fixed BIP39 constants and length/word-count relations.
+- `src/bits/` implements bit and chunk conversions used in mnemonic encoding.
 - `src/errors/` defines standard error codes and priority ordering.
 - `src/parser/` implements strict mnemonic parsing contracts.
 - `src/types/` defines shared DTOs such as `ValidationResult`.
