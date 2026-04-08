@@ -1,4 +1,5 @@
 export * from "./bip39/entropyToMnemonic.js";
+export * from "./bip39/mnemonicToEntropy.js";
 export * from "./bits/bitOps.js";
 export * from "./constants/bip39.js";
 export * from "./crypto/crypto.js";
