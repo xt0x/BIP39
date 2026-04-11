@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import test from "node:test";
+import { test } from "vitest";
 
 import { entropyToMnemonicCommand } from "../../src/cli/commands/entropyToMnemonic.ts";
 import { generateEntropyCommand } from "../../src/cli/commands/generateEntropy.ts";

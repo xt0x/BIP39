@@ -22,10 +22,10 @@ It is backed by pinned specification assets in `assets/`, including the English 
 
 ## Warnings
 
-- This project targets the English BIP39 profile only.
-- The CLI and exported APIs distinguish between strict parsing and compatibility normalization; do not assume all inputs are auto-corrected.
-- Generated mnemonics and derived seeds are sensitive secrets. Never commit them, log them, or share them in screenshots.
-- This repository implements BIP39 behavior only. It does not implement BIP32, derivation paths, addresses, or wallet UX.
+> - This project targets the English BIP39 profile only.
+> - The CLI and exported APIs distinguish between strict parsing and compatibility normalization; do not assume all inputs are auto-corrected.
+> - Generated mnemonics and derived seeds are sensitive secrets. Never commit them, log them, or share them in screenshots.
+> - This repository implements BIP39 behavior only. It does not implement BIP32, derivation paths, addresses, or wallet UX.
 
 ## Quick Start
 
@@ -98,37 +98,41 @@ console.log({
 });
 ```
 
-## Development Setup
+## Setup
 
 1. Ensure `Node.js >= 24` is installed.
 2. Ensure `pnpm 10.30.0` or a compatible `pnpm` version is available.
 3. Clone the repository.
 4. Install dependencies with `pnpm install`.
-5. Run `pnpm test` to execute the test suite.
-6. Run `pnpm typecheck` to verify TypeScript types.
-7. Run `pnpm lint` to check formatting and static issues.
-8. Run `pnpm build` to emit JavaScript into `dist/`.
+5. Run `pnpm test` to execute the Vitest suite once.
+6. Run `pnpm test:watch` for watch mode during development.
+7. Run `pnpm typecheck` to verify TypeScript types.
+8. Run `pnpm lint` to check formatting and static issues.
+9. Run `pnpm build` to emit JavaScript into `dist/`.
 
-## Output Location
+## Testing
+
+- The project uses `Vitest` with a Node test environment.
+- Tests live in `test/` and cover both unit behavior and CLI integration flows.
+- Use `pnpm test` for a single run and `pnpm test:watch` while iterating.
+- Use `pnpm run ci` to run lint, typecheck, tests, and build together.
+
+## Output
 
 - Compiled JavaScript is emitted to `dist/`.
 - The CLI entry point is emitted to `dist/cli/index.js`.
 - Source files remain in `src/`.
-- Tests live in `test/` and are not emitted by the build.
+- Vitest test files remain in `test/` and are not emitted by the build.
 
-## Configuration File Setup
+## Configuration
 
 No runtime configuration file is required.
 
 The main repository-level configuration files are:
 
 - `package.json` for scripts and package metadata
-- `tsconfig.json` and `tsconfig.build.json` for TypeScript compilation
+- `tsconfig.json` for TypeScript compilation and build output settings
 - `biome.json` for linting and formatting
-
-## Environment Variables
-
-No environment variables are required for standard development, build, test, or CLI usage.
 
 ## Directory Structure
 
@@ -152,8 +156,7 @@ No environment variables are required for standard development, build, test, or 
 ├── biome.json               # Lint/format configuration
 ├── package.json             # Scripts and package metadata
 ├── README.md                # Project overview and usage
-├── tsconfig.build.json      # Build-time TypeScript configuration
-└── tsconfig.json            # Base TypeScript configuration
+└── tsconfig.json            # TypeScript compilation configuration
 ```
 
 ## License

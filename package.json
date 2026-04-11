@@ -7,11 +7,12 @@
 		"bip39": "dist/cli/index.js"
 	},
 	"scripts": {
-		"test": "node --test --import tsx \"test/**/*.test.ts\" \"test/**/*.spec.ts\" \"test/**/*.test.js\" \"test/**/*.spec.js\"",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"lint": "biome check .",
 		"typecheck": "tsc --noEmit",
-		"build": "tsc -p tsconfig.build.json",
-		"ci": "pnpm lint && pnpm typecheck && pnpm build",
+		"build": "tsc -p tsconfig.json",
+		"ci": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
 		"format": "biome format --write ."
 	},
 	"keywords": [],
@@ -27,6 +28,7 @@
 		"@types/node": "^24.12.2",
 		"@types/three": "0.183.1",
 		"tsx": "^4.19.2",
-		"typescript": "^5.6.3"
+		"typescript": "^5.6.3",
+		"vitest": "^3.2.4"
 	}
 }

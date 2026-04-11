@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import test from "node:test";
+import { test } from "vitest";
 
 import { ErrorCode } from "../src/errors/errorCodes.ts";
 import type { ValidationResult } from "../src/types/validationResult.ts";

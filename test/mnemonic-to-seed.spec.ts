@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { pbkdf2Sync } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import test from "node:test";
+import { test } from "vitest";
 
 import {
 	InvalidMnemonicSeedFormatError,
