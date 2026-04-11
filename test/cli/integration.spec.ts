@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import test from "node:test";
+import { test } from "vitest";
 
 const MNEMONIC =
 	"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";
 
-test("cli validate runs via node with tsx", () => {
+test("cli validate runs from the TypeScript entrypoint", () => {
 	const result = spawnSync(
 		process.execPath,
 		["--import", "tsx", "src/cli/index.ts", "validate", MNEMONIC],
