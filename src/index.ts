@@ -7,6 +7,8 @@ export * from "./constants/bip39.js";
 export * from "./crypto/crypto.js";
 export * from "./entropy/entropyGenerator.js";
 export * from "./errors/errorCodes.js";
+export * from "./integration/errorMessages.js";
+export * from "./integration/externalIntegration.js";
 export * from "./normalize/normalizeMnemonicInput.js";
 export * from "./parser/strictMnemonic.js";
 export * from "./types/validationResult.js";

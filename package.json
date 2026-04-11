@@ -3,17 +3,20 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"bin": {
+		"bip39": "dist/cli/index.js"
+	},
 	"scripts": {
 		"test": "node --test --import tsx \"test/**/*.test.ts\" \"test/**/*.spec.ts\" \"test/**/*.test.js\" \"test/**/*.spec.js\"",
 		"lint": "biome check .",
 		"typecheck": "tsc --noEmit",
-		"build": "tsc -p tsconfig.json",
+		"build": "tsc -p tsconfig.build.json",
 		"ci": "pnpm lint && pnpm typecheck && pnpm build",
 		"format": "biome format --write ."
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
+	"license": "MIT",
 	"type": "module",
 	"packageManager": "pnpm@10.30.0",
 	"engines": {
