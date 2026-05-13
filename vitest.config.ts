@@ -4,10 +4,10 @@ export default defineConfig({
 	test: {
 		environment: "node",
 		include: [
-			"test/**/*.spec.ts",
-			"test/**/*.test.ts",
-			"test/**/*.spec.js",
-			"test/**/*.test.js",
+			"tests/**/*.spec.ts",
+			"tests/**/*.test.ts",
+			"tests/**/*.spec.js",
+			"tests/**/*.test.js",
 		],
 	},
 });

@@ -5,6 +5,11 @@
 		"source.fixAll.biome": "explicit",
 		"source.organizeImports.biome": "explicit"
 	},
+	"github.copilot.chat.commitMessageGeneration.instructions": [
+		{
+			"file": ".vscode/commit-message-instructions.md"
+		}
+	],
 	"[solidity]": {
 		"editor.defaultFormatter": "JuanBlanco.solidity"
 	}
