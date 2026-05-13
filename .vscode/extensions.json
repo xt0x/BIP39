@@ -1,3 +1,8 @@
 {
-	"recommendations": ["biomejs.biome", "JuanBlanco.solidity"]
+	"recommendations": [
+		"biomejs.biome",
+		"JuanBlanco.solidity",
+		"GitHub.copilot",
+		"GitHub.copilot-chat"
+	]
 }
