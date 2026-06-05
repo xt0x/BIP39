@@ -113,7 +113,7 @@ console.log({
 ## Testing
 
 - The project uses `Vitest` with a Node test environment.
-- Tests live in `test/` and cover both unit behavior and CLI integration flows.
+- Tests live in `tests/` and cover both unit behavior and CLI integration flows.
 - Use `pnpm test` for a single run and `pnpm test:watch` while iterating.
 - Use `pnpm run ci` to run lint, typecheck, tests, and build together.
 
@@ -122,7 +122,7 @@ console.log({
 - Compiled JavaScript is emitted to `dist/`.
 - The CLI entry point is emitted to `dist/cli/index.js`.
 - Source files remain in `src/`.
-- Vitest test files remain in `test/` and are not emitted by the build.
+- Vitest test files remain in `tests/` and are not emitted by the build.
 
 ## Configuration
 
@@ -152,7 +152,7 @@ The main repository-level configuration files are:
 │   ├── parser/              # Strict mnemonic parsing rules
 │   ├── types/               # Shared DTOs and result types
 │   └── index.ts             # Public export surface
-├── test/                    # Unit and integration tests
+├── tests/                   # Unit and integration tests
 ├── biome.json               # Lint/format configuration
 ├── package.json             # Scripts and package metadata
 ├── README.md                # Project overview and usage
