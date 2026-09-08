@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { WORDLIST_SIZE } from "../constants/bip39.js";
+import { WORDLIST_SIZE } from "./constants.js";
 
 export type Wordlist = {
 	words: string[];

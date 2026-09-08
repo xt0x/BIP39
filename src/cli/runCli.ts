@@ -1,7 +1,7 @@
+import { ENTROPY_BYTES, WORD_COUNTS } from "../bip39/constants.js";
+import { generateEntropy } from "../bip39/entropyGenerator.js";
 import { entropyToMnemonic } from "../bip39/entropyToMnemonic.js";
-import { ENTROPY_BYTES, WORD_COUNTS } from "../constants/bip39.js";
-import { generateEntropy } from "../entropy/entropyGenerator.js";
-import type { ErrorCode } from "../errors/errorCodes.js";
+import type { ErrorCode } from "../bip39/errorCodes.js";
 import { ERROR_MESSAGES } from "../integration/errorMessages.js";
 import { parseArgs } from "./args.js";
 import {

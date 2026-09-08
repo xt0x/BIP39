@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { pbkdf2Sync } from "node:crypto";
 import { test } from "vitest";
-
+import { ErrorCode } from "../../src/bip39/errorCodes.ts";
 import { InvalidMnemonicFormatError } from "../../src/bip39/mnemonic.ts";
 import {
 	generateMnemonicCommand,
@@ -10,7 +10,6 @@ import {
 	mnemonicToSeedCommand,
 	validateCommand,
 } from "../../src/cli/commands.ts";
-import { ErrorCode } from "../../src/errors/errorCodes.ts";
 
 const ENTROPY_HEX = "00000000000000000000000000000000";
 const MNEMONIC =

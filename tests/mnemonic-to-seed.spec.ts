@@ -3,12 +3,11 @@ import { pbkdf2Sync } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { test } from "vitest";
-
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
 import {
 	InvalidMnemonicSeedFormatError,
 	mnemonicToSeed,
 } from "../src/bip39/mnemonicToSeed.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
 
 const toHex = (bytes: Uint8Array): string =>
 	Array.from(bytes)

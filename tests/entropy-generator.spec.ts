@@ -6,7 +6,7 @@ import {
 	type EntropyGenerator,
 	generateEntropy,
 	InvalidEntropyLengthError,
-} from "../src/entropy/entropyGenerator.ts";
+} from "../src/bip39/entropyGenerator.ts";
 
 const allowed = [16, 20, 24, 28, 32];
 

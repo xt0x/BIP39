@@ -1,4 +1,4 @@
-import { ErrorCode } from "../errors/errorCodes.js";
+import { ErrorCode } from "../bip39/errorCodes.js";
 
 export const ERROR_MESSAGES: Record<ErrorCode, string> = {
 	[ErrorCode.ERR_ENTROPY_LENGTH]:

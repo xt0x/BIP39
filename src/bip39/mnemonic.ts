@@ -1,9 +1,9 @@
-import { bitsToBytes, bytesToBits, integersToBits } from "../bits/bitOps.js";
-import { WORD_COUNTS } from "../constants/bip39.js";
-import { sha256 } from "../crypto/crypto.js";
-import { ErrorCode } from "../errors/errorCodes.js";
-import { parseMnemonicWordsStrict } from "../parser/strictMnemonic.js";
-import { loadEnglishWordlistSync } from "../wordlist/wordlist.js";
+import { bitsToBytes, bytesToBits, integersToBits } from "./bitOps.js";
+import { WORD_COUNTS } from "./constants.js";
+import { sha256 } from "./crypto.js";
+import { ErrorCode } from "./errorCodes.js";
+import { parseMnemonicWordsStrict } from "./strictMnemonic.js";
+import { loadEnglishWordlistSync } from "./wordlist.js";
 
 export type ValidationResult = {
 	ok: boolean;

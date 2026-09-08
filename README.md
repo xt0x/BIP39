@@ -140,17 +140,9 @@ The main repository-level configuration files are:
 .
 ├── assets/                  # Pinned specification assets and test vectors
 ├── src/                     # TypeScript source code
-│   ├── bip39/               # Core workflows and their result types
-│   ├── bits/                # Bit conversion helpers
+│   ├── bip39/               # BIP39 library, primitives, entropy, and wordlists
 │   ├── cli/                 # Command-line interface
-│   ├── constants/           # Fixed BIP39 constants and mappings
-│   ├── crypto/              # SHA-256 and PBKDF2 wrappers
-│   ├── entropy/             # Secure entropy generation
-│   ├── errors/              # Standard error codes
-│   ├── integration/         # Error messaging and integration adapters
-│   ├── normalize/           # Compatibility input normalization
-│   ├── parser/              # Strict mnemonic parsing rules
-│   ├── wordlist/            # English wordlist parsing, loading, and lookups
+│   ├── integration/         # Shared input normalization and external adapters
 │   └── index.ts             # Public export surface
 ├── tests/                   # Unit and integration tests
 ├── biome.json               # Lint/format configuration

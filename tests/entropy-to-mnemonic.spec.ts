@@ -7,7 +7,7 @@ import {
 	EntropyLengthError,
 	entropyToMnemonic,
 } from "../src/bip39/entropyToMnemonic.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
 
 type Vector = [string, string, string, string];
 

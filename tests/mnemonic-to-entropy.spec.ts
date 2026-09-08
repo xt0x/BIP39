@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { test } from "vitest";
-
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
 import {
 	ChecksumMismatchError,
 	InvalidMnemonicFormatError,
@@ -11,7 +11,6 @@ import {
 	mnemonicToEntropy,
 	WordNotInListError,
 } from "../src/bip39/mnemonic.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
 
 type Vector = [string, string, string, string];
 

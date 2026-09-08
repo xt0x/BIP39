@@ -1,11 +1,11 @@
+import { entropyBitsForWordCount, type WordCount } from "../bip39/constants.js";
+import { generateEntropy } from "../bip39/entropyGenerator.js";
 import { entropyToMnemonic } from "../bip39/entropyToMnemonic.js";
+import { ErrorCode } from "../bip39/errorCodes.js";
 import { mnemonicToEntropy, validateMnemonic } from "../bip39/mnemonic.js";
 import { mnemonicToSeed } from "../bip39/mnemonicToSeed.js";
-import { entropyBitsForWordCount, type WordCount } from "../constants/bip39.js";
-import { generateEntropy } from "../entropy/entropyGenerator.js";
-import { ErrorCode } from "../errors/errorCodes.js";
-import { normalizeMnemonicInput } from "../normalize/normalizeMnemonicInput.js";
-import { loadEnglishWordlistSync } from "../wordlist/wordlist.js";
+import { loadEnglishWordlistSync } from "../bip39/wordlist.js";
+import { normalizeMnemonicInput } from "../integration/normalizeMnemonicInput.js";
 
 export const generateMnemonicCommand = (words: number): string => {
 	const entropyBits = entropyBitsForWordCount(words as WordCount);

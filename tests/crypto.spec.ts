@@ -5,8 +5,8 @@ import {
 	Pbkdf2FailureError,
 	pbkdf2HmacSha512,
 	sha256,
-} from "../src/crypto/crypto.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
+} from "../src/bip39/crypto.ts";
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
 
 const bytesToHex = (bytes: Uint8Array): string =>
 	Array.from(bytes)

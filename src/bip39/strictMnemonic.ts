@@ -1,4 +1,4 @@
-import { ErrorCode } from "../errors/errorCodes.js";
+import { ErrorCode } from "./errorCodes.js";
 
 export type StrictMnemonicParseSuccess = {
 	ok: true;

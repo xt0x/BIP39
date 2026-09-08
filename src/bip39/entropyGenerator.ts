@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 
-import { ENTROPY_BYTES } from "../constants/bip39.js";
+import { ENTROPY_BYTES } from "./constants.js";
 
 export class InvalidEntropyLengthError extends Error {
 	constructor(message = "Invalid entropy length") {

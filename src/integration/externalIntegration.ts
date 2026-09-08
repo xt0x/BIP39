@@ -1,8 +1,8 @@
+import { ErrorCode } from "../bip39/errorCodes.js";
 import { type ValidationResult, validateMnemonic } from "../bip39/mnemonic.js";
 import { mnemonicToSeed } from "../bip39/mnemonicToSeed.js";
-import { ErrorCode } from "../errors/errorCodes.js";
-import { normalizeMnemonicInput } from "../normalize/normalizeMnemonicInput.js";
 import { ERROR_MESSAGES } from "./errorMessages.js";
+import { normalizeMnemonicInput } from "./normalizeMnemonicInput.js";
 
 export type SeedDerivationResult =
 	| {

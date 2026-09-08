@@ -1,15 +1,12 @@
+export * from "./bip39/bitOps.js";
+export * from "./bip39/constants.js";
+export * from "./bip39/crypto.js";
+export * from "./bip39/entropyGenerator.js";
 export * from "./bip39/entropyToMnemonic.js";
+export * from "./bip39/errorCodes.js";
 export * from "./bip39/mnemonic.js";
 export * from "./bip39/mnemonicToSeed.js";
-export * from "./bits/bitOps.js";
-export * from "./constants/bip39.js";
-export * from "./crypto/crypto.js";
-export * from "./entropy/entropyGenerator.js";
-export * from "./errors/errorCodes.js";
-export * from "./integration/errorMessages.js";
-export * from "./integration/externalIntegration.js";
-export * from "./normalize/normalizeMnemonicInput.js";
-export * from "./parser/strictMnemonic.js";
+export * from "./bip39/strictMnemonic.js";
 export {
 	createWordlist,
 	indexToWord,
@@ -17,4 +14,7 @@ export {
 	parseWordlist,
 	type Wordlist,
 	wordToIndex,
-} from "./wordlist/wordlist.js";
+} from "./bip39/wordlist.js";
+export * from "./integration/errorMessages.js";
+export * from "./integration/externalIntegration.js";
+export * from "./integration/normalizeMnemonicInput.js";

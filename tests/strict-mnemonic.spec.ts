@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "vitest";
 
-import { ErrorCode } from "../src/errors/errorCodes.ts";
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
 import {
 	parseMnemonicWordsStrict,
 	type StrictMnemonicParseResult,
-} from "../src/parser/strictMnemonic.ts";
+} from "../src/bip39/strictMnemonic.ts";
 
 const validMnemonic =
 	"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";

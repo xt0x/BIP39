@@ -6,7 +6,7 @@ import {
 	bitsToIntegers,
 	bytesToBits,
 	integersToBits,
-} from "../src/bits/bitOps.ts";
+} from "../src/bip39/bitOps.ts";
 
 test("bytesToBits reads MSB to LSB", () => {
 	const bits = bytesToBits(Uint8Array.from([0x80, 0x01]));

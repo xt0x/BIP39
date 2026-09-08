@@ -52,7 +52,7 @@ test.each([
 	fileReads.readFile.mockResolvedValue(text);
 	fileReads.readFileSync.mockReturnValue(text);
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	for (const list of [await loadAsync(), loadSync()]) {
 		assert.deepEqual(list.words, words);
 		assert.deepEqual(
@@ -127,7 +127,7 @@ test.each([
 	fileReads.readFile.mockResolvedValue(input.lines.join("\n"));
 	fileReads.readFileSync.mockReturnValue(input.lines.join("\n"));
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	await assert.rejects(loadAsync, {
 		name: "Error",
 		message: input.asyncMessage,
@@ -137,7 +137,7 @@ test.each([
 
 test("English loaders reuse a successfully loaded dictionary", async () => {
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	const asyncList = await loadAsync();
 	const syncList = loadSync();
 	fileReads.readFile.mockRejectedValue(new Error("Wordlist unavailable"));
@@ -155,7 +155,7 @@ test("English loaders retry after a failed file read", async () => {
 		throw failure;
 	});
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	await assert.rejects(loadAsync, failure);
 	assert.throws(loadSync, failure);
 	assert.equal((await loadAsync()).words[0], "abandon");
@@ -166,7 +166,7 @@ test("English loaders retry after malformed wordlist contents", async () => {
 	fileReads.readFile.mockResolvedValueOnce("incomplete\n");
 	fileReads.readFileSync.mockReturnValueOnce("incomplete\n");
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	const error = {
 		name: "Error",
 		message: "Wordlist must contain 2048 words, got 1",
@@ -182,7 +182,7 @@ test.each([
 	"sync first",
 ])("English loader caches stay separate when initialized %s", async (order) => {
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	if (order === "sync first") loadSync();
 	const asyncList = await loadAsync();
 	const syncList = loadSync();
@@ -202,7 +202,7 @@ test("an asynchronous read can finish independently of a synchronous read", asyn
 		}),
 	);
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	const pending = loadAsync();
 	assert.ok(pending instanceof Promise);
 	assert.equal(fileReads.readFileSync.mock.calls.length, 0);
@@ -223,7 +223,7 @@ test("a pending asynchronous read can fail and retry without affecting the synch
 		}),
 	);
 	const { loadEnglishWordlist: loadAsync, loadEnglishWordlistSync: loadSync } =
-		await import("../src/wordlist/wordlist.ts");
+		await import("../src/bip39/wordlist.ts");
 	const pending = loadAsync();
 	const failure = new Error("Asynchronous read failed");
 	const rejection = assert.rejects(pending, failure);
@@ -238,7 +238,7 @@ test("a pending asynchronous read can fail and retry without affecting the synch
 });
 
 test("mutating the public dictionary does not affect core BIP39 operations", async () => {
-	const { loadEnglishWordlist } = await import("../src/wordlist/wordlist.ts");
+	const { loadEnglishWordlist } = await import("../src/bip39/wordlist.ts");
 	const { entropyToMnemonic } = await import(
 		"../src/bip39/entropyToMnemonic.ts"
 	);

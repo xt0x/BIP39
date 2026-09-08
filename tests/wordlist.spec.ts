@@ -7,7 +7,7 @@ import {
 	loadEnglishWordlist,
 	parseWordlist,
 	wordToIndex,
-} from "../src/wordlist/wordlist.ts";
+} from "../src/bip39/wordlist.ts";
 
 const makeWords = (count: number): string[] =>
 	Array.from({ length: count }, (_, i) => `word${i}`);
