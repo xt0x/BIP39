@@ -12,4 +12,11 @@ export * from "./integration/externalIntegration.js";
 export * from "./normalize/normalizeMnemonicInput.js";
 export * from "./parser/strictMnemonic.js";
 export * from "./types/validationResult.js";
-export * from "./wordlist/wordlist.js";
+export {
+	createWordlist,
+	indexToWord,
+	loadEnglishWordlist,
+	parseWordlist,
+	type Wordlist,
+	wordToIndex,
+} from "./wordlist/wordlist.js";

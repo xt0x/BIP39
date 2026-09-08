@@ -3,7 +3,7 @@ import { WORD_COUNTS } from "../constants/bip39.js";
 import { sha256 } from "../crypto/crypto.js";
 import { ErrorCode } from "../errors/errorCodes.js";
 import { parseMnemonicWordsStrict } from "../parser/strictMnemonic.js";
-import { loadEnglishWordlist } from "./englishWordlist.js";
+import { loadEnglishWordlistSync } from "../wordlist/wordlist.js";
 
 export class MnemonicToEntropyError extends Error {
 	code: ErrorCode;
@@ -64,7 +64,7 @@ export const mnemonicToEntropy = (input: string | string[]): Uint8Array => {
 		throw new InvalidWordCountError();
 	}
 
-	const { wordToIndex } = loadEnglishWordlist();
+	const { wordToIndex } = loadEnglishWordlistSync();
 	const indices = words.map((word) => {
 		const index = wordToIndex.get(word);
 		if (index === undefined) {

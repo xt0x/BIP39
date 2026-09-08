@@ -4,7 +4,7 @@ import { sha256 } from "../crypto/crypto.js";
 import { ErrorCode } from "../errors/errorCodes.js";
 import { parseMnemonicWordsStrict } from "../parser/strictMnemonic.js";
 import type { ValidationResult } from "../types/validationResult.js";
-import { loadEnglishWordlist } from "./englishWordlist.js";
+import { loadEnglishWordlistSync } from "../wordlist/wordlist.js";
 
 const isValidWordCount = (count: number): boolean =>
 	(WORD_COUNTS as readonly number[]).includes(count);
@@ -41,7 +41,7 @@ export const validateMnemonic = (
 		};
 	}
 
-	const { wordToIndex } = loadEnglishWordlist();
+	const { wordToIndex } = loadEnglishWordlistSync();
 	const indices: number[] = [];
 	for (const word of words) {
 		const index = wordToIndex.get(word);

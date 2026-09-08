@@ -12,6 +12,7 @@
 - `src/cli/` provides a command-line interface wrapping the core APIs.
 - `src/integration/` wires core APIs to external systems (UI/BIP32) and error messaging.
 - `src/types/` defines shared DTOs such as `ValidationResult`.
-- `src/wordlist/` loads and validates the English wordlist with index mappings.
+- `src/wordlist/` centralizes English wordlist parsing and index mappings, with independent synchronous and asynchronous loader caches.
 - `src/index.ts` re-exports the public surface for these foundational modules.
+- Wordlist exports are explicit so the synchronous loader remains internal to core and CLI modules.
 - Build output is emitted to `dist/`; `src/` contains TypeScript sources only.

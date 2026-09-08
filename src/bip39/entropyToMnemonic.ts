@@ -5,7 +5,7 @@ import {
 } from "../constants/bip39.js";
 import { sha256 } from "../crypto/crypto.js";
 import { ErrorCode } from "../errors/errorCodes.js";
-import { loadEnglishWordlist } from "./englishWordlist.js";
+import { loadEnglishWordlistSync } from "../wordlist/wordlist.js";
 
 export class EntropyLengthError extends Error {
 	code = ErrorCode.ERR_ENTROPY_LENGTH;
@@ -32,7 +32,7 @@ export const entropyToMnemonic = (entropy: Uint8Array): string => {
 	const checksum = bytesToBits(sha256(entropy)).slice(0, checksumBits);
 	const combined = entropyBitArray.concat(checksum);
 	const indices = bitsToIntegers(combined, 11);
-	const { words } = loadEnglishWordlist();
+	const { words } = loadEnglishWordlistSync();
 	const mnemonicWords = indices.map((index) => {
 		const word = words[index];
 		if (word === undefined) {

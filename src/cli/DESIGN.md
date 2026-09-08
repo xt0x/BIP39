@@ -7,3 +7,4 @@
 - `hex.ts` handles hex encoding/decoding for byte outputs.
 - The CLI defaults to normalized input, with `--strict` to disable normalization.
 - Added `generate-mnemonic-with-wordlist` to emit a generated mnemonic plus the full English wordlist.
+- Wordlist output uses the synchronous loader in `src/wordlist/wordlist.ts`, sharing the core dictionary while remaining independent of the public asynchronous loader's cache.

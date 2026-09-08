@@ -154,3 +154,13 @@ test("loadEnglishWordlist loads 2048 words with stable mapping", async () => {
 	assert.equal(wordToIndex(list, list.words[0]), 0);
 	assert.equal(wordToIndex(list, list.words[2047]), 2047);
 });
+
+test("the public entry point preserves wordlist exports and keeps the synchronous loader internal", async () => {
+	const api = await import("../src/index.ts");
+	assert.strictEqual(api.createWordlist, createWordlist);
+	assert.strictEqual(api.parseWordlist, parseWordlist);
+	assert.strictEqual(api.loadEnglishWordlist, loadEnglishWordlist);
+	assert.strictEqual(api.indexToWord, indexToWord);
+	assert.strictEqual(api.wordToIndex, wordToIndex);
+	assert.equal("loadEnglishWordlistSync" in api, false);
+});
