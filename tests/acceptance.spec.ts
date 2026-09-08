@@ -4,22 +4,19 @@ import { resolve } from "node:path";
 import { test } from "vitest";
 
 import {
-	EntropyLengthError,
-	entropyToMnemonic,
-} from "../src/bip39/entropyToMnemonic.ts";
-import {
 	ChecksumMismatchError,
+	EntropyLengthError,
+	ErrorCode,
+	entropyToMnemonic,
 	InvalidMnemonicFormatError,
-	InvalidWordCountError,
-	mnemonicToEntropy,
-	WordNotInListError,
-} from "../src/bip39/mnemonicToEntropy.ts";
-import {
 	InvalidMnemonicSeedFormatError,
+	InvalidWordCountError,
+	MnemonicToEntropyError,
+	mnemonicToEntropy,
 	mnemonicToSeed,
-} from "../src/bip39/mnemonicToSeed.ts";
-import { validateMnemonic } from "../src/bip39/validateMnemonic.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
+	validateMnemonic,
+	WordNotInListError,
+} from "../src/index.ts";
 
 const hexToBytes = (hex: string): Uint8Array =>
 	Uint8Array.from(hex.match(/.{2}/g) ?? [], (byte) =>
@@ -59,6 +56,123 @@ test("roundtrip covers all allowed entropy lengths", () => {
 		const mnemonic = entropyToMnemonic(entropy);
 		const roundtrip = mnemonicToEntropy(mnemonic);
 		assert.equal(bytesToHex(roundtrip), bytesToHex(entropy));
+	}
+});
+
+// Fixed zero-entropy cases for every ENT/CS/MS row in assets/bip-0039.mediawiki.
+// The pinned official vectors do not include the 15- and 21-word lengths.
+test.each([
+	{ bytes: 16, wordCount: 12, lastWord: "about" },
+	{ bytes: 20, wordCount: 15, lastWord: "address" },
+	{ bytes: 24, wordCount: 18, lastWord: "agent" },
+	{ bytes: 28, wordCount: 21, lastWord: "admit" },
+	{ bytes: 32, wordCount: 24, lastWord: "art" },
+])("public APIs support $wordCount words with string and array input", ({
+	bytes,
+	wordCount,
+	lastWord,
+}) => {
+	const entropy = new Uint8Array(bytes);
+	const words = [...Array<string>(wordCount - 1).fill("abandon"), lastWord];
+	const mnemonic = words.join(" ");
+	assert.equal(entropyToMnemonic(entropy), mnemonic);
+	for (const input of [mnemonic, words]) {
+		assert.deepEqual(mnemonicToEntropy(input), entropy);
+		assert.deepEqual(validateMnemonic(input), {
+			ok: true,
+			error_code: null,
+			normalized_mnemonic: mnemonic,
+			word_count: wordCount,
+			invalid_word: null,
+		});
+	}
+	assert.equal(words.join(" "), mnemonic);
+	assert.deepEqual(entropy, new Uint8Array(bytes));
+});
+
+const invalidMnemonicCases = [
+	{
+		label: "format before word count and unknown words",
+		mnemonic: "TYPO abandon",
+		code: ErrorCode.ERR_INVALID_MNEMONIC_FORMAT,
+		ErrorType: InvalidMnemonicFormatError,
+		message: "Invalid mnemonic format",
+		normalized: null,
+		wordCount: null,
+		invalidWord: null,
+	},
+	{
+		label: "word count before unknown words",
+		mnemonic: "typo abandon",
+		code: ErrorCode.ERR_INVALID_WORD_COUNT,
+		ErrorType: InvalidWordCountError,
+		message: "Invalid word count",
+		normalized: "typo abandon",
+		wordCount: 2,
+		invalidWord: null,
+	},
+	{
+		label: "unknown word before checksum",
+		mnemonic: `${"abandon ".repeat(11)}typo`,
+		code: ErrorCode.ERR_WORD_NOT_IN_LIST,
+		ErrorType: WordNotInListError,
+		message: "Word not in list: typo",
+		normalized: `${"abandon ".repeat(11)}typo`,
+		wordCount: 12,
+		invalidWord: "typo",
+	},
+	{
+		label: "first unknown word when several are present",
+		mnemonic: `typo ${"abandon ".repeat(10)}unknown`,
+		code: ErrorCode.ERR_WORD_NOT_IN_LIST,
+		ErrorType: WordNotInListError,
+		message: "Word not in list: typo",
+		normalized: `typo ${"abandon ".repeat(10)}unknown`,
+		wordCount: 12,
+		invalidWord: "typo",
+	},
+	{
+		label: "checksum after valid format, word count and words",
+		mnemonic: Array<string>(12).fill("abandon").join(" "),
+		code: ErrorCode.ERR_CHECKSUM_MISMATCH,
+		ErrorType: ChecksumMismatchError,
+		message: "Checksum mismatch",
+		normalized: Array<string>(12).fill("abandon").join(" "),
+		wordCount: 12,
+		invalidWord: null,
+	},
+];
+
+test.each(
+	invalidMnemonicCases,
+)("public validation and decoding preserve $label", ({
+	mnemonic,
+	code,
+	ErrorType,
+	message,
+	normalized,
+	wordCount,
+	invalidWord,
+}) => {
+	for (const input of [mnemonic, mnemonic.split(" ")]) {
+		assert.deepEqual(validateMnemonic(input), {
+			ok: false,
+			error_code: code,
+			normalized_mnemonic: normalized,
+			word_count: wordCount,
+			invalid_word: invalidWord,
+		});
+		assert.throws(
+			() => mnemonicToEntropy(input),
+			(error: unknown) => {
+				assert.ok(error instanceof ErrorType);
+				assert.ok(error instanceof MnemonicToEntropyError);
+				assert.equal(error.name, ErrorType.name);
+				assert.equal(error.code, code);
+				assert.equal(error.message, message);
+				return true;
+			},
+		);
 	}
 });
 

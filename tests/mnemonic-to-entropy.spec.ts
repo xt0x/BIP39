@@ -75,3 +75,57 @@ test("mnemonicToEntropy error types share base class", () => {
 	const error = new InvalidMnemonicFormatError();
 	assert.ok(error instanceof MnemonicToEntropyError);
 });
+
+test.each([
+	{
+		ErrorType: InvalidMnemonicFormatError,
+		name: "InvalidMnemonicFormatError",
+		code: ErrorCode.ERR_INVALID_MNEMONIC_FORMAT,
+		message: "Invalid mnemonic format",
+	},
+	{
+		ErrorType: InvalidWordCountError,
+		name: "InvalidWordCountError",
+		code: ErrorCode.ERR_INVALID_WORD_COUNT,
+		message: "Invalid word count",
+	},
+	{
+		ErrorType: WordNotInListError,
+		name: "WordNotInListError",
+		code: ErrorCode.ERR_WORD_NOT_IN_LIST,
+		message: "Word not in list",
+	},
+	{
+		ErrorType: ChecksumMismatchError,
+		name: "ChecksumMismatchError",
+		code: ErrorCode.ERR_CHECKSUM_MISMATCH,
+		message: "Checksum mismatch",
+	},
+])("$name preserves its public identity and optional message", ({
+	ErrorType,
+	name,
+	code,
+	message,
+}) => {
+	for (const [error, expectedMessage] of [
+		[new ErrorType(), message],
+		[new ErrorType("custom message"), "custom message"],
+	] as const) {
+		assert.ok(error instanceof Error);
+		assert.ok(error instanceof MnemonicToEntropyError);
+		assert.equal(error.name, name);
+		assert.equal(error.code, code);
+		assert.equal(error.message, expectedMessage);
+	}
+});
+
+test("MnemonicToEntropyError preserves its supplied code and message", () => {
+	const error = new MnemonicToEntropyError(
+		ErrorCode.ERR_INVALID_WORD_COUNT,
+		"custom message",
+	);
+	assert.ok(error instanceof Error);
+	assert.equal(error.name, "MnemonicToEntropyError");
+	assert.equal(error.code, ErrorCode.ERR_INVALID_WORD_COUNT);
+	assert.equal(error.message, "custom message");
+});
