@@ -10,7 +10,7 @@ import {
 	MnemonicToEntropyError,
 	mnemonicToEntropy,
 	WordNotInListError,
-} from "../src/bip39/mnemonicToEntropy.ts";
+} from "../src/bip39/mnemonic.ts";
 import { ErrorCode } from "../src/errors/errorCodes.ts";
 
 type Vector = [string, string, string, string];

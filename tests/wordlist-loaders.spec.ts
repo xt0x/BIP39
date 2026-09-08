@@ -242,9 +242,8 @@ test("mutating the public dictionary does not affect core BIP39 operations", asy
 	const { entropyToMnemonic } = await import(
 		"../src/bip39/entropyToMnemonic.ts"
 	);
-	const { validateMnemonic } = await import("../src/bip39/validateMnemonic.ts");
-	const { mnemonicToEntropy } = await import(
-		"../src/bip39/mnemonicToEntropy.ts"
+	const { validateMnemonic, mnemonicToEntropy } = await import(
+		"../src/bip39/mnemonic.ts"
 	);
 	const list = await loadEnglishWordlist();
 	const originalWords = [...list.words];
@@ -282,9 +281,8 @@ test.each([
 	fileReads.readFileSync.mockImplementation(() => {
 		throw new Error("Wordlist unavailable");
 	});
-	const { validateMnemonic } = await import("../src/bip39/validateMnemonic.ts");
-	const { mnemonicToEntropy } = await import(
-		"../src/bip39/mnemonicToEntropy.ts"
+	const { validateMnemonic, mnemonicToEntropy } = await import(
+		"../src/bip39/mnemonic.ts"
 	);
 	assert.equal(validateMnemonic(input.input).error_code, input.code);
 	assert.throws(() => mnemonicToEntropy(input.input), {
@@ -294,4 +292,29 @@ test.each([
 	});
 	assert.equal(fileReads.readFile.mock.calls.length, 0);
 	assert.equal(fileReads.readFileSync.mock.calls.length, 0);
+});
+
+test("validation and decoding propagate wordlist read failures unchanged and retry", async () => {
+	const failure = new Error("Wordlist unavailable");
+	fileReads.readFileSync.mockImplementation(() => {
+		throw failure;
+	});
+	const { validateMnemonic, mnemonicToEntropy } = await import(
+		"../src/bip39/mnemonic.ts"
+	);
+	for (const operation of [validateMnemonic, mnemonicToEntropy]) {
+		assert.throws(
+			() => operation(mnemonic),
+			(error: unknown) => error === failure,
+		);
+	}
+	fileReads.readFileSync.mockReturnValue(englishText);
+	assert.deepEqual(validateMnemonic(mnemonic), {
+		ok: true,
+		error_code: null,
+		normalized_mnemonic: mnemonic,
+		word_count: 12,
+		invalid_word: null,
+	});
+	assert.deepEqual(mnemonicToEntropy(mnemonic), new Uint8Array(16));
 });

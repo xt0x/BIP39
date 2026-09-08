@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { expectTypeOf, test } from "vitest";
 
+import type { ValidationResult as MnemonicValidationResult } from "../src/bip39/mnemonic.ts";
 import {
 	ErrorCode,
 	entropyToMnemonic,
@@ -28,6 +29,7 @@ test("ValidationResult shape is stable", () => {
 
 // Vitest transpiles type assertions; the compiler test below checks them too.
 test("public validation and conversion types remain compatible", () => {
+	expectTypeOf<MnemonicValidationResult>().toEqualTypeOf<ValidationResult>();
 	expectTypeOf<ValidationResult>().toEqualTypeOf<{
 		ok: boolean;
 		error_code: ErrorCode | null;

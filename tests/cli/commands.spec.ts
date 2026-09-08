@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { pbkdf2Sync } from "node:crypto";
 import { test } from "vitest";
 
-import { InvalidMnemonicFormatError } from "../../src/bip39/mnemonicToEntropy.ts";
+import { InvalidMnemonicFormatError } from "../../src/bip39/mnemonic.ts";
 import {
 	generateMnemonicCommand,
 	generateMnemonicWithWordlistCommand,

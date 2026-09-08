@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { test } from "vitest";
 
-import { validateMnemonic } from "../src/bip39/validateMnemonic.ts";
+import { validateMnemonic } from "../src/bip39/mnemonic.ts";
 import { ErrorCode } from "../src/errors/errorCodes.ts";
 
 const validMnemonic =

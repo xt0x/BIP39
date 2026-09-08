@@ -1,7 +1,6 @@
 import { entropyToMnemonic } from "../bip39/entropyToMnemonic.js";
-import { mnemonicToEntropy } from "../bip39/mnemonicToEntropy.js";
+import { mnemonicToEntropy, validateMnemonic } from "../bip39/mnemonic.js";
 import { mnemonicToSeed } from "../bip39/mnemonicToSeed.js";
-import { validateMnemonic } from "../bip39/validateMnemonic.js";
 import { entropyBitsForWordCount, type WordCount } from "../constants/bip39.js";
 import { generateEntropy } from "../entropy/entropyGenerator.js";
 import { ErrorCode } from "../errors/errorCodes.js";

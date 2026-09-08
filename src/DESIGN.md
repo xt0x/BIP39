@@ -3,7 +3,7 @@
 - Purpose: TypeScript source for the BIP39 implementation.
 - `src/constants/` defines fixed BIP39 constants and length/word-count relations.
 - `src/bits/` implements bit and chunk conversions used in mnemonic encoding.
-- `src/bip39/` contains core BIP39 conversion functions.
+- `src/bip39/` contains core BIP39 conversion functions, with validation, entropy recovery, and `ValidationResult` colocated in `mnemonic.ts`.
 - `src/errors/` defines standard error codes and priority ordering.
 - `src/crypto/` wraps SHA-256 and PBKDF2-HMAC-SHA512 using standard libraries.
 - `src/normalize/` provides a compatibility input adapter (trim, NFKD, lowercase).
@@ -11,7 +11,6 @@
 - `src/entropy/` generates entropy via secure randomness with injectable providers for tests.
 - `src/cli/` provides a command-line interface wrapping the core APIs.
 - `src/integration/` wires core APIs to external systems (UI/BIP32) and error messaging.
-- `src/types/` defines shared DTOs such as `ValidationResult`.
 - `src/wordlist/` centralizes English wordlist parsing and index mappings, with independent synchronous and asynchronous loader caches.
 - `src/index.ts` re-exports the public surface for these foundational modules.
 - Wordlist exports are explicit so the synchronous loader remains internal to core and CLI modules.
