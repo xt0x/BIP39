@@ -11,13 +11,15 @@ import { ErrorCode } from "../src/errors/errorCodes.ts";
 
 type Vector = [string, string, string, string];
 
-test("entropyToMnemonic rejects invalid entropy length", () => {
-	assert.throws(
-		() => entropyToMnemonic(new Uint8Array(15)),
-		(error) =>
-			error instanceof EntropyLengthError &&
-			error.code === ErrorCode.ERR_ENTROPY_LENGTH,
-	);
+test.each([
+	15, 17,
+])("entropyToMnemonic rejects %i bytes with its length error", (bytes) => {
+	assert.throws(() => entropyToMnemonic(new Uint8Array(bytes)), {
+		constructor: EntropyLengthError,
+		name: "EntropyLengthError",
+		code: ErrorCode.ERR_ENTROPY_LENGTH,
+		message: "Entropy must be 16/20/24/28/32 bytes",
+	});
 });
 
 test("entropyToMnemonic matches official vectors", async () => {

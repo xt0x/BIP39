@@ -17,9 +17,14 @@ test("generateEntropy returns allowed lengths", () => {
 	}
 });
 
-test("generateEntropy rejects invalid lengths", () => {
-	assert.throws(() => generateEntropy(15), InvalidEntropyLengthError);
-	assert.throws(() => generateEntropy(33), InvalidEntropyLengthError);
+test.each([
+	15, 17, 33,
+])("generateEntropy rejects %i bytes with its length error", (bytes) => {
+	assert.throws(() => generateEntropy(bytes), {
+		constructor: InvalidEntropyLengthError,
+		name: "InvalidEntropyLengthError",
+		message: "Entropy must be 16/20/24/28/32 bytes",
+	});
 });
 
 test("EntropyGenerator allows deterministic output in tests", () => {

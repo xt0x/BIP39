@@ -2,16 +2,14 @@ import assert from "node:assert/strict";
 import { pbkdf2Sync } from "node:crypto";
 import { test } from "vitest";
 
-import { EntropyLengthError } from "../../src/bip39/entropyToMnemonic.ts";
 import { InvalidMnemonicFormatError } from "../../src/bip39/mnemonicToEntropy.ts";
-import { entropyToMnemonicCommand } from "../../src/cli/commands/entropyToMnemonic.ts";
-import { generateEntropyCommand } from "../../src/cli/commands/generateEntropy.ts";
-import { generateMnemonicCommand } from "../../src/cli/commands/generateMnemonic.ts";
-import { generateMnemonicWithWordlistCommand } from "../../src/cli/commands/generateMnemonicWithWordlist.ts";
-import { mnemonicToEntropyCommand } from "../../src/cli/commands/mnemonicToEntropy.ts";
-import { mnemonicToSeedCommand } from "../../src/cli/commands/mnemonicToSeed.ts";
-import { validateCommand } from "../../src/cli/commands/validate.ts";
-import { InvalidEntropyLengthError } from "../../src/entropy/entropyGenerator.ts";
+import {
+	generateMnemonicCommand,
+	generateMnemonicWithWordlistCommand,
+	mnemonicToEntropyCommand,
+	mnemonicToSeedCommand,
+	validateCommand,
+} from "../../src/cli/commands.ts";
 import { ErrorCode } from "../../src/errors/errorCodes.ts";
 
 const ENTROPY_HEX = "00000000000000000000000000000000";
@@ -21,18 +19,8 @@ const SEED_HEX =
 	"c55257c360c07c72029aebc1b53c05ed0362ada38ead3e3e9efa3708e5349553" +
 	"1f09a6987599d18264c1e1c92f2cf141630c7a3c4ab7c81b2f001698e7463b04";
 
-const hexToBytes = (hex: string): Uint8Array =>
-	Uint8Array.from(hex.match(/.{2}/gu) ?? [], (pair) =>
-		Number.parseInt(pair, 16),
-	);
-
 const bytesToHex = (bytes: Uint8Array): string =>
 	Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
-
-test("entropyToMnemonicCommand matches vector", () => {
-	const mnemonic = entropyToMnemonicCommand(hexToBytes(ENTROPY_HEX));
-	assert.equal(mnemonic, MNEMONIC);
-});
 
 test("mnemonicToEntropyCommand matches vector", () => {
 	const entropy = mnemonicToEntropyCommand(MNEMONIC, false);
@@ -49,14 +37,6 @@ test("validateCommand returns normalized mnemonic", () => {
 		ok: true,
 		normalized: MNEMONIC,
 	});
-});
-
-test.each([
-	16, 20, 24, 28, 32,
-])("generateEntropyCommand returns %i bytes", (bytes) => {
-	const entropy = generateEntropyCommand(bytes);
-	assert.ok(entropy instanceof Uint8Array);
-	assert.equal(entropy.length, bytes);
 });
 
 test.each([
@@ -164,20 +144,6 @@ test.each([
 			expected.toString("hex"),
 		);
 	}
-});
-
-test("entropy commands preserve invalid-length exceptions", () => {
-	assert.throws(() => entropyToMnemonicCommand(new Uint8Array(17)), {
-		constructor: EntropyLengthError,
-		name: "EntropyLengthError",
-		code: ErrorCode.ERR_ENTROPY_LENGTH,
-		message: "Entropy must be 16/20/24/28/32 bytes",
-	});
-	assert.throws(() => generateEntropyCommand(17), {
-		constructor: InvalidEntropyLengthError,
-		name: "InvalidEntropyLengthError",
-		message: "Entropy must be 16/20/24/28/32 bytes",
-	});
 });
 
 test.each([

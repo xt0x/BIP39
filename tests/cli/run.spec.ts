@@ -231,6 +231,19 @@ test("runCli generate-entropy outputs hex of default length", async () => {
 	assert.match(hex, /^[0-9a-f]+$/u);
 });
 
+test.each([
+	16, 20, 24, 28, 32,
+])("runCli generate-entropy outputs %i bytes as hex", async (bytes) => {
+	const { io, stdout, stderr } = createIo();
+	const exitCode = await runCli(
+		["generate-entropy", "--bytes", String(bytes)],
+		io,
+	);
+	assert.equal(exitCode, 0);
+	assert.equal(stderr.join(""), "");
+	assert.match(stdout.join(""), new RegExp(`^[0-9a-f]{${bytes * 2}}\\n$`, "u"));
+});
+
 test("runCli generate-mnemonic outputs requested word count", async () => {
 	const { io, stdout } = createIo();
 	const exitCode = await runCli(["generate-mnemonic", "--words", "12"], io);
