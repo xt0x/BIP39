@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "vitest";
 
-import { normalizeMnemonicInput } from "../src/normalize/normalizeMnemonicInput.ts";
+import { normalizeMnemonicInput } from "../src/integration/normalizeMnemonicInput.ts";
 
 test("normalizeMnemonicInput trims and collapses whitespace", () => {
 	const input = "  Abandon\tabandon\nABOUT  ";

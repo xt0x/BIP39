@@ -1,14 +1,13 @@
-<div align="center">
-  <h1>BIP39</h1>
-  <p><strong>TypeScript library and CLI for generating, validating, and converting BIP39 English mnemonics</strong></p>
+# BIP39
+
+**TypeScript library and CLI for generating, validating, and converting BIP39 English mnemonics**
+
   <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white" />
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white" />
   <img alt="pnpm" src="https://img.shields.io/badge/pnpm-10.30.0-F69220?logo=pnpm&logoColor=white" />
-</div>
 
-
-## Project Overview
+## Overview
 
 This repository provides the core BIP39 workflows for the English wordlist profile:
 
@@ -77,11 +76,11 @@ node dist/cli/index.js mnemonic-to-seed "abandon abandon abandon abandon abandon
 
 ```ts
 import {
-	entropyToMnemonic,
-	generateEntropy,
-	mnemonicToEntropy,
-	mnemonicToSeed,
-	validateMnemonic,
+  entropyToMnemonic,
+  generateEntropy,
+  mnemonicToEntropy,
+  mnemonicToSeed,
+  validateMnemonic,
 } from "./dist/index.js";
 
 const entropy = generateEntropy(16);
@@ -91,10 +90,10 @@ const seed = mnemonicToSeed(mnemonic, "TREZOR");
 const validation = validateMnemonic(mnemonic);
 
 console.log({
-	mnemonic,
-	roundTripEntropyLength: roundTripEntropy.length,
-	seedLength: seed.length,
-	validation,
+  mnemonic,
+  roundTripEntropyLength: roundTripEntropy.length,
+  seedLength: seed.length,
+  validation,
 });
 ```
 
@@ -134,30 +133,36 @@ The main repository-level configuration files are:
 - `tsconfig.json` for TypeScript compilation and build output settings
 - `biome.json` for linting and formatting
 
-## Directory Structure
+## Structure
 
 ```text
 .
-├── assets/                  # Pinned specification assets and test vectors
-├── src/                     # TypeScript source code
-│   ├── bip39/               # Core entropy/mnemonic/seed workflows
-│   ├── bits/                # Bit conversion helpers
-│   ├── cli/                 # Command-line interface
-│   ├── constants/           # Fixed BIP39 constants and mappings
-│   ├── crypto/              # SHA-256 and PBKDF2 wrappers
-│   ├── entropy/             # Secure entropy generation
-│   ├── errors/              # Standard error codes
-│   ├── integration/         # Error messaging and integration adapters
-│   ├── normalize/           # Compatibility input normalization
-│   ├── parser/              # Strict mnemonic parsing rules
-│   ├── types/               # Shared DTOs and result types
-│   └── index.ts             # Public export surface
-├── tests/                   # Unit and integration tests
-├── biome.json               # Lint/format configuration
-├── package.json             # Scripts and package metadata
-├── README.md                # Project overview and usage
-└── tsconfig.json            # TypeScript compilation configuration
+├── assets/
+├── src/
+│   ├── bip39/
+│   ├── cli/
+│   ├── integration/
+│   └── index.ts
+├── tests/
+├── biome.json
+├── package.json
+├── README.md
+└── tsconfig.json
 ```
+
+| Path | Description |
+| --- | --- |
+| `assets/` | Pinned specification assets and test vectors |
+| `src/` | TypeScript source code |
+| `src/bip39/` | BIP39 library, primitives, entropy, and wordlists |
+| `src/cli/` | Command-line interface |
+| `src/integration/` | Shared input normalization and external adapters |
+| `src/index.ts` | Public export surface |
+| `tests/` | Unit and integration tests |
+| `biome.json` | Lint/format configuration |
+| `package.json` | Scripts and package metadata |
+| `README.md` | Project overview and usage |
+| `tsconfig.json` | TypeScript compilation configuration |
 
 ## License
 

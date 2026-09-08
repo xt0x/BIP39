@@ -1,5 +1,5 @@
-import { pbkdf2HmacSha512 } from "../crypto/crypto.js";
-import { ErrorCode } from "../errors/errorCodes.js";
+import { pbkdf2HmacSha512 } from "./crypto.js";
+import { ErrorCode } from "./errorCodes.js";
 
 export class InvalidMnemonicSeedFormatError extends Error {
 	code = ErrorCode.ERR_INVALID_MNEMONIC_FORMAT;

@@ -2,9 +2,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { test } from "vitest";
-
-import { validateMnemonic } from "../src/bip39/validateMnemonic.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
+import { validateMnemonic } from "../src/bip39/mnemonic.ts";
 
 const validMnemonic =
 	"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";

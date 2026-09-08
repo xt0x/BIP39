@@ -1,8 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "vitest";
-
+import { ErrorCode } from "../src/bip39/errorCodes.ts";
 import { mnemonicToSeed } from "../src/bip39/mnemonicToSeed.ts";
-import { ErrorCode } from "../src/errors/errorCodes.ts";
 import {
 	deriveBip32RootFromMnemonic,
 	deriveSeedForUi,

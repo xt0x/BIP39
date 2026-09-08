@@ -1,7 +1,8 @@
+import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { WORDLIST_SIZE } from "../constants/bip39.js";
+import { WORDLIST_SIZE } from "./constants.js";
 
 export type Wordlist = {
 	words: string[];
@@ -10,7 +11,9 @@ export type Wordlist = {
 
 const ENGLISH_WORDLIST_PATH = "assets/english.txt";
 
-let cachedEnglishWordlist: Wordlist | null = null;
+// Public callers can mutate their dictionary without changing core operations.
+let cachedAsyncEnglishWordlist: Wordlist | null = null;
+let cachedSyncEnglishWordlist: Wordlist | null = null;
 
 export const createWordlist = (words: string[]): Wordlist => {
 	if (words.length !== WORDLIST_SIZE) {
@@ -33,13 +36,18 @@ export const createWordlist = (words: string[]): Wordlist => {
 	return { words: [...words], wordToIndex };
 };
 
-export const parseWordlist = (text: string): Wordlist => {
+const splitWordlistLines = (text: string): string[] => {
 	const lines = text
 		.split("\n")
 		.map((line) => (line.endsWith("\r") ? line.slice(0, -1) : line));
 	if (lines.length > 0 && lines[lines.length - 1] === "") {
 		lines.pop();
 	}
+	return lines;
+};
+
+export const parseWordlist = (text: string): Wordlist => {
+	const lines = splitWordlistLines(text);
 	if (lines.some((line) => line.length === 0)) {
 		throw new Error("Wordlist contains empty lines");
 	}
@@ -47,13 +55,24 @@ export const parseWordlist = (text: string): Wordlist => {
 };
 
 export const loadEnglishWordlist = async (): Promise<Wordlist> => {
-	if (cachedEnglishWordlist) {
-		return cachedEnglishWordlist;
+	if (cachedAsyncEnglishWordlist) {
+		return cachedAsyncEnglishWordlist;
 	}
 	const filePath = resolve(process.cwd(), ENGLISH_WORDLIST_PATH);
 	const text = await readFile(filePath, "utf8");
-	cachedEnglishWordlist = parseWordlist(text);
-	return cachedEnglishWordlist;
+	cachedAsyncEnglishWordlist = parseWordlist(text);
+	return cachedAsyncEnglishWordlist;
+};
+
+export const loadEnglishWordlistSync = (): Wordlist => {
+	if (cachedSyncEnglishWordlist) {
+		return cachedSyncEnglishWordlist;
+	}
+	const filePath = resolve(process.cwd(), ENGLISH_WORDLIST_PATH);
+	const text = readFileSync(filePath, "utf8");
+	// The synchronous contract checks length before empty or duplicate words.
+	cachedSyncEnglishWordlist = createWordlist(splitWordlistLines(text));
+	return cachedSyncEnglishWordlist;
 };
 
 export const indexToWord = (wordlist: Wordlist, index: number): string => {

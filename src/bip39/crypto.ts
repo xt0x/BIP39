@@ -1,7 +1,7 @@
 import { createHash, pbkdf2Sync } from "node:crypto";
 
-import { PBKDF2_ITERATIONS, SEED_BYTES } from "../constants/bip39.js";
-import { ErrorCode } from "../errors/errorCodes.js";
+import { PBKDF2_ITERATIONS, SEED_BYTES } from "./constants.js";
+import { ErrorCode } from "./errorCodes.js";
 
 export class Pbkdf2FailureError extends Error {
 	code = ErrorCode.ERR_PBKDF2_FAILURE;

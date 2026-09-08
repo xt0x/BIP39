@@ -5,7 +5,7 @@ import {
 	ErrorCode,
 	MNEMONIC_TO_SEED_ERROR_PRIORITY,
 	MNEMONIC_VALIDATION_ERROR_PRIORITY,
-} from "../src/errors/errorCodes.ts";
+} from "../src/bip39/errorCodes.ts";
 
 test("Error codes are fixed", () => {
 	const codes = Object.values(ErrorCode);

@@ -12,7 +12,7 @@ import {
 	WORD_COUNTS,
 	WORDLIST_SIZE,
 	wordCountForEntropyBits,
-} from "../src/constants/bip39.ts";
+} from "../src/bip39/constants.ts";
 
 test("BIP39 constants match spec", () => {
 	assert.deepEqual(ENTROPY_BYTES, [16, 20, 24, 28, 32]);

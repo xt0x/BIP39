@@ -1,14 +1,16 @@
-import { ENTROPY_BYTES, WORD_COUNTS } from "../constants/bip39.js";
-import type { ErrorCode } from "../errors/errorCodes.js";
+import { ENTROPY_BYTES, WORD_COUNTS } from "../bip39/constants.js";
+import { generateEntropy } from "../bip39/entropyGenerator.js";
+import { entropyToMnemonic } from "../bip39/entropyToMnemonic.js";
+import type { ErrorCode } from "../bip39/errorCodes.js";
 import { ERROR_MESSAGES } from "../integration/errorMessages.js";
 import { parseArgs } from "./args.js";
-import { entropyToMnemonicCommand } from "./commands/entropyToMnemonic.js";
-import { generateEntropyCommand } from "./commands/generateEntropy.js";
-import { generateMnemonicCommand } from "./commands/generateMnemonic.js";
-import { generateMnemonicWithWordlistCommand } from "./commands/generateMnemonicWithWordlist.js";
-import { mnemonicToEntropyCommand } from "./commands/mnemonicToEntropy.js";
-import { mnemonicToSeedCommand } from "./commands/mnemonicToSeed.js";
-import { validateCommand } from "./commands/validate.js";
+import {
+	generateMnemonicCommand,
+	generateMnemonicWithWordlistCommand,
+	mnemonicToEntropyCommand,
+	mnemonicToSeedCommand,
+	validateCommand,
+} from "./commands.js";
 import { bytesToHex, hexToBytes } from "./hex.js";
 
 export type CliIO = {
@@ -130,7 +132,7 @@ export const runCli = async (argv: string[], io: CliIO): Promise<number> => {
 					io.writeStderr(`Invalid hex: ${(error as Error).message}\n`);
 					return 2;
 				}
-				const mnemonic = entropyToMnemonicCommand(bytes);
+				const mnemonic = entropyToMnemonic(bytes);
 				io.writeStdout(`${mnemonic}\n`);
 				return 0;
 			}
@@ -164,7 +166,7 @@ export const runCli = async (argv: string[], io: CliIO): Promise<number> => {
 					io.writeStderr(usage);
 					return 2;
 				}
-				const entropy = generateEntropyCommand(bytes);
+				const entropy = generateEntropy(bytes);
 				io.writeStdout(`${bytesToHex(entropy)}\n`);
 				return 0;
 			}
