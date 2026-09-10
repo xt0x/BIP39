@@ -2,12 +2,13 @@
 
 **TypeScript library and CLI for generating, validating, and converting BIP39 English mnemonics**
 
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white" />
-  <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white" />
-  <img alt="pnpm" src="https://img.shields.io/badge/pnpm-10.30.0-F69220?logo=pnpm&logoColor=white" />
 
-## Overview
+![License](https://img.shields.io/badge/license-MIT-blue.svg) 
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white) 
+![Node](https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white) 
+![pnpm](https://img.shields.io/badge/pnpm-10.30.0-F69220?logo=pnpm&logoColor=white)
+
+### Overview
 
 This repository provides the core BIP39 workflows for the English wordlist profile:
 
@@ -19,14 +20,14 @@ This repository provides the core BIP39 workflows for the English wordlist profi
 
 It is backed by pinned specification assets in `assets/`, including the English wordlist and official test vectors.
 
-## Warnings
+### Warnings
 
 > - This project targets the English BIP39 profile only.
 > - The CLI and exported APIs distinguish between strict parsing and compatibility normalization; do not assume all inputs are auto-corrected.
 > - Generated mnemonics and derived seeds are sensitive secrets. Never commit them, log them, or share them in screenshots.
 > - This repository implements BIP39 behavior only. It does not implement BIP32, derivation paths, addresses, or wallet UX.
 
-## Quick Start
+### Quick Start
 
 ### 1. Install dependencies
 
@@ -97,7 +98,7 @@ console.log({
 });
 ```
 
-## Setup
+### Setup
 
 1. Ensure `Node.js >= 24` is installed.
 2. Ensure `pnpm 10.30.0` or a compatible `pnpm` version is available.
@@ -109,21 +110,21 @@ console.log({
 8. Run `pnpm lint` to check formatting and static issues.
 9. Run `pnpm build` to emit JavaScript into `dist/`.
 
-## Testing
+### Testing
 
 - The project uses `Vitest` with a Node test environment.
 - Tests live in `tests/` and cover both unit behavior and CLI integration flows.
 - Use `pnpm test` for a single run and `pnpm test:watch` while iterating.
 - Use `pnpm run ci` to run lint, typecheck, tests, and build together.
 
-## Output
+### Output
 
 - Compiled JavaScript is emitted to `dist/`.
 - The CLI entry point is emitted to `dist/cli/index.js`.
 - Source files remain in `src/`.
 - Vitest test files remain in `tests/` and are not emitted by the build.
 
-## Configuration
+### Configuration
 
 No runtime configuration file is required.
 
@@ -133,7 +134,7 @@ The main repository-level configuration files are:
 - `tsconfig.json` for TypeScript compilation and build output settings
 - `biome.json` for linting and formatting
 
-## Structure
+### Structure
 
 ```text
 .
@@ -150,20 +151,6 @@ The main repository-level configuration files are:
 └── tsconfig.json
 ```
 
-| Path | Description |
-| --- | --- |
-| `assets/` | Pinned specification assets and test vectors |
-| `src/` | TypeScript source code |
-| `src/bip39/` | BIP39 library, primitives, entropy, and wordlists |
-| `src/cli/` | Command-line interface |
-| `src/integration/` | Shared input normalization and external adapters |
-| `src/index.ts` | Public export surface |
-| `tests/` | Unit and integration tests |
-| `biome.json` | Lint/format configuration |
-| `package.json` | Scripts and package metadata |
-| `README.md` | Project overview and usage |
-| `tsconfig.json` | TypeScript compilation configuration |
-
-## License
+### License
 
 MIT - see [LICENSE](LICENSE).
